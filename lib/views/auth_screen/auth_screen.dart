@@ -3,6 +3,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/common_functions.dart';
+import '../../utils/cutom_widget.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
         backgroundColor: white,
         centerTitle: true,
         title: Image(
-          image: AssetImage(
+          image: const AssetImage(
             'assets/images/amazon_logo.png',
           ),
           height: height * 0.04,
@@ -58,13 +59,12 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 Builder(builder: (context) {
                   if (isLogin) {
-                    return SignIn(width, height, textTheme, context);
+                    return signIn(width, height, textTheme, context);
                   }
-                  return CreateAccount(width, height, textTheme, context);
+                  return createAccount(width, height, textTheme, context);
                 }),
                 CommonFunctions.blankSpace(height: height * 0.05, width: 0),
-                FooterWidget(
-                    width: width, height: height, textTheme: textTheme),
+                const FooterWidget(),
               ],
             ),
           ),
@@ -73,7 +73,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Container SignIn(
+  Container signIn(
       double width, double height, TextTheme textTheme, BuildContext context) {
     return Container(
       width: width,
@@ -244,7 +244,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         cursorColor: black,
                         style: textTheme.displaySmall,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(7.0),
+                          contentPadding: const EdgeInsets.all(7.0),
                           hintText: 'Mobile number',
                           hintStyle: textTheme.displaySmall,
                           border: OutlineInputBorder(
@@ -277,15 +277,10 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                 ),
                 CommonFunctions.blankSpace(height: height * 0.02, width: 0),
-                ElevatedButton(
+                AuthButtonWidget(
+                  title: 'Continue',
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(width * 0.88, height * 0.06),
-                      backgroundColor: amber),
-                  child: Text(
-                    'Continue',
-                    style: textTheme.displaySmall!,
-                  ),
+                  btnWidth: 0.88,
                 ),
                 CommonFunctions.blankSpace(height: height * 0.02, width: 0),
                 RichText(
@@ -312,7 +307,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Container CreateAccount(
+  Container createAccount(
       double width, double height, TextTheme textTheme, BuildContext context) {
     return Container(
       width: width,
@@ -384,7 +379,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: TextField(
                     controller: nameController,
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(7.0),
+                      contentPadding: const EdgeInsets.all(7.0),
                       hintText: 'First and Last Name',
                       hintStyle: textTheme.bodySmall,
                       border: OutlineInputBorder(
@@ -456,7 +451,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         cursorColor: black,
                         style: textTheme.displaySmall,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(7.0),
+                          contentPadding: const EdgeInsets.all(7.0),
                           hintText: 'Mobile number',
                           hintStyle: textTheme.bodySmall,
                           //hintStyle: textTheme.displaySmall,
@@ -495,15 +490,10 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: textTheme.bodyMedium,
                 ),
                 CommonFunctions.blankSpace(height: height * 0.02, width: 0),
-                ElevatedButton(
+                AuthButtonWidget(
+                  title: "Verify Mobile Number",
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(width * 0.88, height * 0.06),
-                      backgroundColor: amber),
-                  child: Text(
-                    'Verify mobile number',
-                    style: textTheme.displaySmall!,
-                  ),
+                  btnWidth: 0.88,
                 ),
                 CommonFunctions.blankSpace(height: height * 0.02, width: 0),
                 RichText(
@@ -590,58 +580,6 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class FooterWidget extends StatelessWidget {
-  const FooterWidget({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.textTheme,
-  });
-
-  final double width;
-  final double height;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 2,
-          width: width,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [white, greyShade3, white],
-          )),
-        ),
-        CommonFunctions.blankSpace(height: height * 0.02, width: 0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Condition of Use',
-              style: textTheme.bodyMedium!.copyWith(color: blue),
-            ),
-            Text(
-              'Privacy Notice',
-              style: textTheme.bodyMedium!.copyWith(color: blue),
-            ),
-            Text(
-              'Help',
-              style: textTheme.bodyMedium!.copyWith(color: blue),
-            ),
-          ],
-        ),
-        CommonFunctions.blankSpace(height: height * 0.01, width: 0),
-        Text(
-          '© 1996-2024, Amazon.com, Inc. or its affliates',
-          style: textTheme.labelMedium!.copyWith(color: grey),
-        ),
-      ],
     );
   }
 }
